@@ -1,0 +1,14 @@
+[ 
+	{
+		"userIdentity": "user1233",
+		"time": "2021-01-02T12:23:32.122Z",
+		"userOption": "Option1",
+		"pollingName": "PollA"
+	},
+	{
+		"userIdentity": "user1273",
+		"time": "2021-01-02T12:23:10.122Z",
+		"userOption": "Option2",
+		"pollingName": "PollB"
+	} 
+]

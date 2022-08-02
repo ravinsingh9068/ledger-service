@@ -1,0 +1,1 @@
+mvn clean install -Dfilepath=C:\Ravinder\Work\Projects\ledger-service\src\main\resources\test-files\ledger-input-file.txt

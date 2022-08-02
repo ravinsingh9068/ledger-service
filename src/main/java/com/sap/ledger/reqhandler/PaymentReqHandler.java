@@ -9,9 +9,10 @@ import com.sap.ledger.entity.Payment;
 import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.repository.PaymentRepository;
 import com.sap.ledger.view.request.PaymentReq;
+import com.sap.ledger.view.response.BaseResponse;
 
 @Component
-public class PaymentReqHandler {
+public class PaymentReqHandler implements RequestHandler{
 	@Autowired
 	private PaymentReq paymentReq;
 	
@@ -24,8 +25,11 @@ public class PaymentReqHandler {
 	@Autowired
 	private MessageSource messages;
 	
-	//TODO: Response should be a generic response that could send the error as well
-	public long HandlePaymentReqCommand() {
+	public PaymentReqHandler(PaymentReq paymentRequest) {
+		this.paymentReq=paymentRequest;
+	}
+
+	public BaseResponse handleCommandRequest(){
 		Loan loan = loanRepository.getLoanByBankAndBorrower(paymentReq.getBankName(), paymentReq.getBorrowerName());
 		if (loan == null){
 			throw new IllegalArgumentException(messages.getMessage("err.loan.record.not.found", null, null));
@@ -36,7 +40,7 @@ public class PaymentReqHandler {
 		}
 		Payment payment = convertPaymentReqToEntity(paymentReq);
 		payment = paymentRepository.save(payment);
-		return payment.getId();
+		return new BaseResponse(payment.getId());
 	}
 
 	private Payment convertPaymentReqToEntity(PaymentReq paymentReq) {

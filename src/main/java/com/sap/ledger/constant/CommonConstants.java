@@ -8,4 +8,8 @@ public class CommonConstants {
 	public static String STATUS_FAILURE 		= "Failure";
 	public static String SYSTEM_ERROR 			= "SYSTEM_ERROR";
 	
+	public final static String LOAN				= "LOAN";
+	public final static String PAYMENT	 		= "PAYMENT";
+	public final static String BALANCE	 		= "BALANCE";
+	
 }

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 import com.sap.ledger.entity.Loan;
 import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.view.request.LoanReq;
+import com.sap.ledger.view.response.BaseResponse;
 
 @Component
-public class LoanReqHandler {
+public class LoanReqHandler implements RequestHandler{
 
 	@Autowired
 	private LoanReq loanReq;
@@ -16,11 +17,17 @@ public class LoanReqHandler {
 	@Autowired
 	private LoanRepository loanRepository;
 	
+	
+	public LoanReqHandler(LoanReq loanRequest) {
+		this.loanReq=loanRequest;
+	}
+
 	//TODO: Response should be a generic response that could send the error as well
-	public long HandleLoanReqCommand(){
+	@Override
+	public BaseResponse handleCommandRequest(){
 		Loan loan = convertLoanReqToEntity(loanReq);
 		loan = loanRepository.save(loan);
-		return loan.getId();
+		return new BaseResponse(loan.getId());
 	}
 
 	private Loan convertLoanReqToEntity(LoanReq loanReq) {

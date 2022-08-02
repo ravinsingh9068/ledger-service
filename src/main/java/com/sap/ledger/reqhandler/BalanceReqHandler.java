@@ -10,9 +10,10 @@ import com.sap.ledger.entity.Loan;
 import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.view.request.BalanceReq;
 import com.sap.ledger.view.response.BalanceResponse;
+import com.sap.ledger.view.response.BaseResponse;
 
 @Component
-public class BalanceReqHandler {
+public class BalanceReqHandler implements RequestHandler{
 	
 	@Autowired
 	private BalanceReq balanceReq;
@@ -23,8 +24,12 @@ public class BalanceReqHandler {
 	@Autowired
 	private MessageSource messages;
 	
-	//TODO: Response should be a generic response that could send the error as well
-	public BalanceResponse HandleBalanceReqCommand(){
+	public BalanceReqHandler(BalanceReq balanceRequest) {
+		this.balanceReq = balanceRequest;
+	}
+
+	@Override
+	public BaseResponse handleCommandRequest(){
 		
 		Loan loan = loanRepository.getLoanByBankAndBorrower(balanceReq.getBankName(), balanceReq.getBorrowerName());
 		if (loan == null){
@@ -41,6 +46,7 @@ public class BalanceReqHandler {
 		balanceResponse.setBankName(loan.getBankName());
 		balanceResponse.setBorrowerName(loan.getBorrowerName());
 		balanceResponse.setPendingEmis(remainingEmis > 0 ? (int)remainingEmis : 0);
-		return balanceResponse;
+		return new BaseResponse(balanceResponse);
 	}
+	
 }

@@ -22,9 +22,9 @@ public class Loan{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
-	private String bank;
+	private String bankName;
 	
-	private String borrower;
+	private String borrowerName;
 	
 	private BigDecimal principalAmount;
 	

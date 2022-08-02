@@ -8,4 +8,6 @@ import com.sap.ledger.entity.Loan;
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
+	Loan getLoanByBankAndBorrower(String bankName, String borrowerName);
+
 }

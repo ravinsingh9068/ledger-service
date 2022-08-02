@@ -20,4 +20,6 @@ public class Payment {
 	private long id;
 	private int emiNumber;
 	private BigDecimal amount;
+	private String bankName;
+	private String borrowerName;
 }

@@ -58,7 +58,10 @@ public class Loan{
 
 	public final BigDecimal getPaidAmountTillEmiNumberProvided(int emiNumber){
 		if (this.getPayments()!= null && !this.getPayments().isEmpty()){
-			return this.getPayments().stream().filter(x -> x.getEmiNumber() <= emiNumber).sum(x -> x.Amount);
+			return this.getPayments().stream()
+					.filter(x -> x.getEmiNumber() <= emiNumber)
+					.map(Payment::getAmount)
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
 		}
 		return new BigDecimal(0);
 	}

@@ -23,7 +23,7 @@ public class BalanceReqHandler {
 	@Autowired
 	private MessageSource messages;
 	
-	//@ToDo: Response should be a generic response that could send the error as well
+	//TODO: Response should be a generic response that could send the error as well
 	public BalanceResponse HandleBalanceReqCommand(){
 		
 		Loan loan = loanRepository.getLoanByBankAndBorrower(balanceReq.getBankName(), balanceReq.getBorrowerName());

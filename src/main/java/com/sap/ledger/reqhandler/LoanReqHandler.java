@@ -16,6 +16,7 @@ public class LoanReqHandler {
 	@Autowired
 	private LoanRepository loanRepository;
 	
+	//TODO: Response should be a generic response that could send the error as well
 	public long HandleLoanReqCommand(){
 		Loan loan = convertLoanReqToEntity(loanReq);
 		loan = loanRepository.save(loan);

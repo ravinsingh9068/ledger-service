@@ -24,6 +24,7 @@ public class PaymentReqHandler {
 	@Autowired
 	private MessageSource messages;
 	
+	//TODO: Response should be a generic response that could send the error as well
 	public long HandlePaymentReqCommand() {
 		Loan loan = loanRepository.getLoanByBankAndBorrower(paymentReq.getBankName(), paymentReq.getBorrowerName());
 		if (loan == null){

@@ -31,7 +31,7 @@ public class BalanceReqHandler implements RequestHandler{
 	@Override
 	public BaseResponse handleCommandRequest(){
 		
-		Loan loan = loanRepository.getLoanByBankAndBorrower(balanceReq.getBankName(), balanceReq.getBorrowerName());
+		Loan loan = loanRepository.findByBankNameAndBorrowerName(balanceReq.getBankName(), balanceReq.getBorrowerName());
 		if (loan == null){
 			throw new IllegalArgumentException(messages.getMessage("err.loan.record.not.found", null, null));
 		}

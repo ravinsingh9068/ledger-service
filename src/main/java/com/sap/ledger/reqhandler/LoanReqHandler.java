@@ -22,7 +22,6 @@ public class LoanReqHandler implements RequestHandler{
 		this.loanReq=loanRequest;
 	}
 
-	//TODO: Response should be a generic response that could send the error as well
 	@Override
 	public BaseResponse handleCommandRequest(){
 		Loan loan = convertLoanReqToEntity(loanReq);

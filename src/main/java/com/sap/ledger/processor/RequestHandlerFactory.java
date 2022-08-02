@@ -22,17 +22,17 @@ public class RequestHandlerFactory {
 	public RequestHandler getRequestHandler(String command) {
 		RequestHandler request = null;
 		if (command.trim().length() > 0) {
-			command = command.substring(0, command.indexOf(" "));
-			if (command != null && command.length() > 0) {
-				switch (command) {
+			String commandType = command.substring(0, command.indexOf(" "));
+			if (commandType != null && commandType.length() > 0) {
+				switch (commandType) {
 				case LOAN:
-					getLoanHandler(command);
+					request = getLoanHandler(command);
 					break;
 				case PAYMENT:
-					getPaymentHandler(command);
+					request = getPaymentHandler(command);
 					break;
 				case BALANCE:
-					getBalanceHandler(command);
+					request = getBalanceHandler(command);
 					break;
 				default:
 					break;
@@ -45,30 +45,30 @@ public class RequestHandlerFactory {
 	private LoanReqHandler getLoanHandler(String commands){
 		
 		String[] loanTuple = commands.split(" ");
-		String bankName = loanTuple[0];
-		String borrowerName = loanTuple[1];
-		BigDecimal principalAmount = new BigDecimal(loanTuple[2]);
-		Integer tenure = Integer.valueOf(loanTuple[3]);
-		BigDecimal interestRate = new BigDecimal(loanTuple[4]);
+		String bankName = loanTuple[1];
+		String borrowerName = loanTuple[2];
+		BigDecimal principalAmount = new BigDecimal(loanTuple[3]);
+		Integer tenure = Integer.valueOf(loanTuple[4]);
+		BigDecimal interestRate = new BigDecimal(loanTuple[5]);
 		return new LoanReqHandler(new LoanReq(bankName, borrowerName, principalAmount, tenure, interestRate));
 	}
 
 	private PaymentReqHandler getPaymentHandler(String commands){
 		
 		String[] paymentTuple = commands.split(" ");
-		String bankName = paymentTuple[0];
-		String borrowerName = paymentTuple[1];
-		BigDecimal amount = new BigDecimal(paymentTuple[2]);
-		Integer emi = Integer.valueOf(paymentTuple[3]);
+		String bankName = paymentTuple[1];
+		String borrowerName = paymentTuple[2];
+		BigDecimal amount = new BigDecimal(paymentTuple[3]);
+		Integer emi = Integer.valueOf(paymentTuple[4]);
 		return new PaymentReqHandler(new PaymentReq(bankName, borrowerName, amount, emi));
 	}
 
 	private BalanceReqHandler getBalanceHandler(String commands){
 		
 		String[] balanceTuple = commands.split(" ");
-		String bankName = balanceTuple[0];
-		String borrowerName = balanceTuple[1];
-		Integer emi = Integer.valueOf(balanceTuple[2]);
+		String bankName = balanceTuple[1];
+		String borrowerName = balanceTuple[2];
+		Integer emi = Integer.valueOf(balanceTuple[3]);
 
 		return new BalanceReqHandler(new BalanceReq(bankName, borrowerName, emi));
 	}

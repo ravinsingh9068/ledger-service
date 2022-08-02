@@ -30,7 +30,7 @@ public class PaymentReqHandler implements RequestHandler{
 	}
 
 	public BaseResponse handleCommandRequest(){
-		Loan loan = loanRepository.getLoanByBankAndBorrower(paymentReq.getBankName(), paymentReq.getBorrowerName());
+		Loan loan = loanRepository.findByBankNameAndBorrowerName(paymentReq.getBankName(), paymentReq.getBorrowerName());
 		if (loan == null){
 			throw new IllegalArgumentException(messages.getMessage("err.loan.record.not.found", null, null));
 		}

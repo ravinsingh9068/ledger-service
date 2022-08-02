@@ -35,13 +35,13 @@ public class RequestProcessor {
 	
 	List<String> commands = new ArrayList<>();
 
-	public RequestProcessor(String filepath){
-		if (filepath ==null || "".equals(filepath)){
-			throw new IllegalArgumentException(messages.getMessage("err.file.path.invalid", null, null));
-		}
-		this.filePath = filepath;
-	}
-
+	/*
+	 * public RequestProcessor(String filepath){ if (filepath ==null ||
+	 * "".equals(filepath)){ throw new
+	 * IllegalArgumentException(messages.getMessage("err.file.path.invalid", null,
+	 * null)); } this.filePath = filepath; }
+	 */
+	
 	@PostConstruct
 	public void ProcessCommands() throws NoSuchMessageException, IOException{
 		List<String> commands = loadAllCommands();

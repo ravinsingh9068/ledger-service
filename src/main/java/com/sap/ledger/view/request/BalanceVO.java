@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BalanceRequest
+public class BalanceVO
 {
 	private String bankName;
 	private String borrowerName;
-	private int emi;
+	private int remainingEMIs;
 
 }

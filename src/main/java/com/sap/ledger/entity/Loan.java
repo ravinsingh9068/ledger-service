@@ -26,7 +26,7 @@ public class Loan{
 	
 	private String borrower;
 	
-	private BigDecimal amount;
+	private BigDecimal principalAmount;
 	
 	private int loanTenure;
 	
@@ -38,8 +38,8 @@ public class Loan{
 
 	public final BigDecimal getPendingAmount(){
 		if (this.getLoanTenure() > 0){
-			return this.getAmount().add(
-					this.getAmount().multiply(
+			return this.getPrincipalAmount().add(
+					this.getPrincipalAmount().multiply(
 							this.getInterestRate().multiply(
 									new BigDecimal(this.getLoanTenure()))).divide(new BigDecimal(100)));
 		}else{
@@ -47,7 +47,7 @@ public class Loan{
 		}
 	}
 
-	public final BigDecimal getEmiAmount(){
+	public final BigDecimal getPendingEmiAmount(){
 		BigDecimal pendingAmount = getPendingAmount();
 		if (pendingAmount.compareTo(new BigDecimal(0)) > 0) {
 			return new BigDecimal(Math.ceil((pendingAmount.divide(new BigDecimal(this.getLoanTenure() * 12))).doubleValue()));

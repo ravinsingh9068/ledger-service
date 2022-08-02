@@ -7,10 +7,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PaymentRequest {
+public class LoanVO{
 
 	private String bankName;
 	private String borrowerName;
-	private BigDecimal lumpsumAmount;
-	private int emi;
+	private BigDecimal principalAmount;
+	private int loanTenure;
+	private BigDecimal interestRate;
+
 }

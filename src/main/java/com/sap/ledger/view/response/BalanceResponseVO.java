@@ -5,10 +5,11 @@ import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
-public class BalanceResponse{
+public class BalanceResponseVO{
 
 	private String bankName;
 	private String borrowerName;
 	private BigDecimal amountPaid;
-	private int remainingEmis;
+	private int pendingEmis;
 }
+

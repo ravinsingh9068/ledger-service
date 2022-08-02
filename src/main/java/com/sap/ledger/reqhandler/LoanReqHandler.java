@@ -1,12 +1,14 @@
-package com.sap.ledger.handlers;
+package com.sap.ledger.reqhandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.sap.ledger.entity.Loan;
 import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.view.request.LoanReq;
 
-public class LoanHandler {
+@Component
+public class LoanReqHandler {
 
 	@Autowired
 	private LoanReq loanReq;

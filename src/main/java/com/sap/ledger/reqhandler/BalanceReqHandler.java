@@ -1,16 +1,18 @@
-package com.sap.ledger.handlers;
+package com.sap.ledger.reqhandler;
 
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
 import com.sap.ledger.entity.Loan;
 import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.view.request.BalanceReq;
 import com.sap.ledger.view.response.BalanceResponse;
 
-public class BalanceHandler {
+@Component
+public class BalanceReqHandler {
 	
 	@Autowired
 	private BalanceReq balanceReq;
@@ -21,6 +23,7 @@ public class BalanceHandler {
 	@Autowired
 	private MessageSource messages;
 	
+	//@ToDo: Response should be a generic response that could send the error as well
 	public BalanceResponse HandleBalanceReqCommand(){
 		
 		Loan loan = loanRepository.getLoanByBankAndBorrower(balanceReq.getBankName(), balanceReq.getBorrowerName());

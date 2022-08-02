@@ -1,7 +1,8 @@
-package com.sap.ledger.handlers;
+package com.sap.ledger.reqhandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Component;
 
 import com.sap.ledger.entity.Loan;
 import com.sap.ledger.entity.Payment;
@@ -9,7 +10,8 @@ import com.sap.ledger.repository.LoanRepository;
 import com.sap.ledger.repository.PaymentRepository;
 import com.sap.ledger.view.request.PaymentReq;
 
-public class PaymentHandler {
+@Component
+public class PaymentReqHandler {
 	@Autowired
 	private PaymentReq paymentReq;
 	

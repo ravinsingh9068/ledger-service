@@ -15,7 +15,6 @@ public class LoanReqHandler implements RequestHandler{
 	
 	private LoanRepository loanRepository;
 	
-	@Autowired
 	public LoanReqHandler(LoanReq loanRequest, LoanRepository loanRepository) {
 		this.loanReq=loanRequest;
 		this.loanRepository=loanRepository;

@@ -24,7 +24,6 @@ public class PaymentReqHandler implements RequestHandler{
 	
 	private MessageSource messages;
 	
-	@Autowired
 	public PaymentReqHandler(PaymentReq paymentRequest,PaymentRepository paymentRepository) {
 		this.paymentReq=paymentRequest;
 		this.paymentRepository=paymentRepository;

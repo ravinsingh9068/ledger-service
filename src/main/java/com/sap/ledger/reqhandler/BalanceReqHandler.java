@@ -23,6 +23,7 @@ public class BalanceReqHandler implements RequestHandler{
 	@Autowired
 	private MessageSource messages;
 	
+	@Autowired
 	public BalanceReqHandler(BalanceReq balanceRequest, LoanRepository loanRepository) {
 		this.balanceReq = balanceRequest;
 		this.loanRepository=loanRepository;

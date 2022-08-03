@@ -22,11 +22,11 @@ public class PaymentReqHandler implements RequestHandler{
 	@Autowired
 	private PaymentRepository paymentRepository;
 	
-	@Autowired
 	private MessageSource messages;
 	
-	public PaymentReqHandler(PaymentReq paymentRequest) {
+	public PaymentReqHandler(PaymentReq paymentRequest,PaymentRepository paymentRepository) {
 		this.paymentReq=paymentRequest;
+		this.paymentRepository=paymentRepository;
 	}
 
 	public BaseResponse handleCommandRequest(){

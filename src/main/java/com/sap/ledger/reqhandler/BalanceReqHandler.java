@@ -18,14 +18,14 @@ public class BalanceReqHandler implements RequestHandler{
 	@Autowired
 	private BalanceReq balanceReq;
 	
-	@Autowired
 	private LoanRepository loanRepository;
 	
 	@Autowired
 	private MessageSource messages;
 	
-	public BalanceReqHandler(BalanceReq balanceRequest) {
+	public BalanceReqHandler(BalanceReq balanceRequest, LoanRepository loanRepository) {
 		this.balanceReq = balanceRequest;
+		this.loanRepository=loanRepository;
 	}
 
 	@Override

@@ -14,12 +14,11 @@ public class LoanReqHandler implements RequestHandler{
 	@Autowired
 	private LoanReq loanReq;
 	
-	@Autowired
 	private LoanRepository loanRepository;
 	
-	
-	public LoanReqHandler(LoanReq loanRequest) {
+	public LoanReqHandler(LoanReq loanRequest, LoanRepository loanRepository) {
 		this.loanReq=loanRequest;
+		this.loanRepository=loanRepository;
 	}
 
 	@Override

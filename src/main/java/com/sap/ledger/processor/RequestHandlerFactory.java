@@ -6,8 +6,11 @@ import static com.sap.ledger.constant.CommonConstants.PAYMENT;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sap.ledger.repository.LoanRepository;
+import com.sap.ledger.repository.PaymentRepository;
 import com.sap.ledger.reqhandler.BalanceReqHandler;
 import com.sap.ledger.reqhandler.LoanReqHandler;
 import com.sap.ledger.reqhandler.PaymentReqHandler;
@@ -18,6 +21,13 @@ import com.sap.ledger.view.request.PaymentReq;
 
 @Component
 public class RequestHandlerFactory {
+	
+	@Autowired
+	private LoanRepository loanRepository;
+	
+	@Autowired
+	private PaymentRepository paymentRepository;
+	
 	
 	public RequestHandler getRequestHandler(String command) {
 		RequestHandler request = null;
@@ -50,7 +60,7 @@ public class RequestHandlerFactory {
 		BigDecimal principalAmount = new BigDecimal(loanTuple[3]);
 		Integer tenure = Integer.valueOf(loanTuple[4]);
 		BigDecimal interestRate = new BigDecimal(loanTuple[5]);
-		return new LoanReqHandler(new LoanReq(bankName, borrowerName, principalAmount, tenure, interestRate));
+		return new LoanReqHandler(new LoanReq(bankName, borrowerName, principalAmount, tenure, interestRate), loanRepository);
 	}
 
 	private PaymentReqHandler getPaymentHandler(String commands){
@@ -60,7 +70,7 @@ public class RequestHandlerFactory {
 		String borrowerName = paymentTuple[2];
 		BigDecimal amount = new BigDecimal(paymentTuple[3]);
 		Integer emi = Integer.valueOf(paymentTuple[4]);
-		return new PaymentReqHandler(new PaymentReq(bankName, borrowerName, amount, emi));
+		return new PaymentReqHandler(new PaymentReq(bankName, borrowerName, amount, emi), paymentRepository);
 	}
 
 	private BalanceReqHandler getBalanceHandler(String commands){
@@ -70,6 +80,6 @@ public class RequestHandlerFactory {
 		String borrowerName = balanceTuple[2];
 		Integer emi = Integer.valueOf(balanceTuple[3]);
 
-		return new BalanceReqHandler(new BalanceReq(bankName, borrowerName, emi));
+		return new BalanceReqHandler(new BalanceReq(bankName, borrowerName, emi), loanRepository);
 	}
 }

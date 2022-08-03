@@ -51,7 +51,7 @@ public class RequestProcessor {
 
 				BaseResponse response = requestHandler.handleCommandRequest();
 				if (requestHandler.getClass() == BalanceReqHandler.class && (response.getData()!=null)){
-					var balanceResponse = (BalanceResponse)response;
+					BalanceResponse balanceResponse = (BalanceResponse)response;
 					System.out.println(String.format("%1$s %2$s %3$s %4$s", 
 							balanceResponse.getBankName(), balanceResponse.getBorrowerName(), balanceResponse.getAmountPaid(), balanceResponse.getPendingEmis()));
 				}

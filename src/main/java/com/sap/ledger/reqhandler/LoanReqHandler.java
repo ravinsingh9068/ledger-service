@@ -1,6 +1,5 @@
 package com.sap.ledger.reqhandler;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sap.ledger.entity.Loan;
@@ -11,7 +10,6 @@ import com.sap.ledger.view.response.BaseResponse;
 @Component
 public class LoanReqHandler implements RequestHandler{
 
-	@Autowired
 	private LoanReq loanReq;
 	
 	private LoanRepository loanRepository;

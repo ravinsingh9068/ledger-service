@@ -13,7 +13,7 @@ import com.sap.ledger.view.response.BaseResponse;
 
 @Component
 public class PaymentReqHandler implements RequestHandler{
-	@Autowired
+	
 	private PaymentReq paymentReq;
 	
 	@Autowired

@@ -16,7 +16,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Component;
 
-import com.sap.ledger.reqhandler.BalanceReqHandler;
 import com.sap.ledger.reqhandler.RequestHandler;
 import com.sap.ledger.view.response.BalanceResponse;
 import com.sap.ledger.view.response.BaseResponse;
@@ -48,13 +47,8 @@ public class RequestProcessor {
 		for (String command : commands){
 			RequestHandler requestHandler = requestHandlerFactory.getRequestHandler(command);
 			if (requestHandler != null){
-
 				BaseResponse response = requestHandler.handleCommandRequest();
 				if(response.getData()!=null && (response.getData() instanceof BalanceResponse) ) {
-					
-				}
-			
-				if (requestHandler.getClass() == BalanceReqHandler.class && (response.getData()!=null)){
 					BalanceResponse balanceResponse = (BalanceResponse)response.getData();
 					System.out.println(String.format("%1$s %2$s %3$s %4$s", 
 							balanceResponse.getBankName(), balanceResponse.getBorrowerName(), balanceResponse.getAmountPaid(), balanceResponse.getPendingEmis()));

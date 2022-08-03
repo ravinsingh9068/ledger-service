@@ -1,6 +1,7 @@
 package com.sap.ledger.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class Loan{
 	public final BigDecimal getPendingEmiAmount(){
 		BigDecimal pendingAmount = getPendingAmount();
 		if (pendingAmount.compareTo(new BigDecimal(0)) > 0) {
-			return new BigDecimal(Math.ceil((pendingAmount.divide(new BigDecimal(this.getLoanTenure() * 12))).doubleValue()));
+			return new BigDecimal(Math.ceil((pendingAmount.divide((new BigDecimal(this.getLoanTenure() * 12)),4, RoundingMode.HALF_EVEN)).doubleValue()));
 		}else{
 			return new BigDecimal(0);
 		}

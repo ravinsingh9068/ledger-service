@@ -1,6 +1,7 @@
 package com.sap.ledger.reqhandler;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,7 +16,6 @@ import com.sap.ledger.view.response.BaseResponse;
 @Component
 public class BalanceReqHandler implements RequestHandler{
 	
-	@Autowired
 	private BalanceReq balanceReq;
 	
 	private LoanRepository loanRepository;
@@ -39,7 +39,7 @@ public class BalanceReqHandler implements RequestHandler{
 				.multiply(loan.getPendingEmiAmount()).add(loan.getPaidAmountTillEmiNumberProvided(balanceReq.getRemainingEMIs()));
 
 		BigDecimal amountPending = loan.getPendingAmount().subtract(totalAmountPaidTillEmi);
-		int remainingEmis = (int) Math.ceil((amountPending.divide(loan.getPendingEmiAmount())).doubleValue());
+		int remainingEmis = (int) Math.ceil((amountPending.divide(loan.getPendingEmiAmount(),4, RoundingMode.HALF_EVEN)).doubleValue());
 
 		BalanceResponse balanceResponse = new BalanceResponse();
 		balanceResponse.setAmountPaid(totalAmountPaidTillEmi);

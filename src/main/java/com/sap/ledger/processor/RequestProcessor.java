@@ -50,8 +50,12 @@ public class RequestProcessor {
 			if (requestHandler != null){
 
 				BaseResponse response = requestHandler.handleCommandRequest();
+				if(response.getData()!=null && (response.getData() instanceof BalanceResponse) ) {
+					
+				}
+			
 				if (requestHandler.getClass() == BalanceReqHandler.class && (response.getData()!=null)){
-					BalanceResponse balanceResponse = (BalanceResponse)response;
+					BalanceResponse balanceResponse = (BalanceResponse)response.getData();
 					System.out.println(String.format("%1$s %2$s %3$s %4$s", 
 							balanceResponse.getBankName(), balanceResponse.getBorrowerName(), balanceResponse.getAmountPaid(), balanceResponse.getPendingEmis()));
 				}

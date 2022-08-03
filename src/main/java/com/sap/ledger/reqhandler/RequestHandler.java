@@ -4,6 +4,6 @@ import com.sap.ledger.view.response.BaseResponse;
 
 public interface RequestHandler {
 
-	BaseResponse handleCommandRequest();
+	BaseResponse handleCommandRequest(String command);
 
 }

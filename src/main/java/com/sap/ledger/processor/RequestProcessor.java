@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.sap.ledger.reqhandler.BalanceReqHandler;
@@ -29,8 +29,8 @@ import com.sap.ledger.view.response.BaseResponse;
 @Component
 public class RequestProcessor {
 
-	@Value("${filepath}")
-	private String filePath;
+	@Autowired 
+	Environment env;
 
 	@Autowired
 	private MessageSource messages;
@@ -46,19 +46,18 @@ public class RequestProcessor {
 
 	List<String> commands = new ArrayList<>();
 
-	/*
-	 * public RequestProcessor(String filepath){ if (filepath ==null ||
-	 * "".equals(filepath)){ throw new
-	 * IllegalArgumentException(messages.getMessage("err.file.path.invalid", null,
-	 * null)); } this.filePath = filepath; }
-	 */
 
 	@PostConstruct
-	public void ProcessCommands() throws NoSuchMessageException, IOException{
-		List<String> commands = loadAllCommands();
-		for (String command : commands){
+	public void ProcessCommands() throws NoSuchMessageException, IOException {
+		String filepath = env.getProperty("filepath");
+		if (filepath == null || "".equals(filepath)) {
+			throw new IllegalArgumentException(messages.getMessage("err.file.path.invalid", null, null));
+		}
+		
+		List<String> commands = loadAllCommands(filepath);
+		for (String command : commands) {
 			String commandType = command.substring(0, command.indexOf(" "));
-			BaseResponse response =null;
+			BaseResponse response = null;
 			switch (commandType) {
 			case LOAN:
 				response = loanReqHandler.handleCommandRequest(command);
@@ -72,17 +71,18 @@ public class RequestProcessor {
 			default:
 				break;
 			}
-			
-			if(response.getData()!=null && (response.getData() instanceof BalanceResponse) ) {
-				BalanceResponse balanceResponse = (BalanceResponse)response.getData();
-				System.out.println(String.format("%1$s %2$s %3$s %4$s", 
-						balanceResponse.getBankName(), balanceResponse.getBorrowerName(), balanceResponse.getAmountPaid(), balanceResponse.getPendingEmis()));
+
+			if (response.getData() != null && (response.getData() instanceof BalanceResponse)) {
+				BalanceResponse balanceResponse = (BalanceResponse) response.getData();
+				System.out.println(String.format("%1$s %2$s %3$s %4$s", balanceResponse.getBankName(),
+						balanceResponse.getBorrowerName(), balanceResponse.getAmountPaid(),
+						balanceResponse.getPendingEmis()));
 			}
 		}
 	}
 
-	private List<String> loadAllCommands() throws NoSuchMessageException, IOException {
-		try (BufferedReader br = Files.newBufferedReader(Paths.get(filePath))) {
+	private List<String> loadAllCommands(String filepath) throws NoSuchMessageException, IOException {
+		try (BufferedReader br = Files.newBufferedReader(Paths.get(filepath))) {
 			commands = br.lines().collect(Collectors.toList());
 		} catch (IOException e) {
 			throw new IOException(messages.getMessage("err.reading.file", null, null));

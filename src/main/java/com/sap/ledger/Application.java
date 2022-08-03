@@ -9,14 +9,17 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@PropertySource({
-    "classpath:messages.properties"
-})
+@PropertySource({ "classpath:messages.properties" })
 @ComponentScan(basePackages = "com.sap")
-public class Application extends SpringBootServletInitializer{
+public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
+
+		for (String arg : args) {
+			System.out.println(arg);
+		}
+
 		SpringApplication.run(Application.class, args);
 	}
-}
 
+}

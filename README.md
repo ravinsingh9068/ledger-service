@@ -1,1 +1,1 @@
-mvn clean install -Dfilepath=C:\Ravinder\Work\Projects\ledger-service\src\main\resources\test-files\ledger-input-file.txt
+java -jar ledger-service-0.1.0.jar -Dfilepath=C:\\Ravinder\\Work\Projects\\ledger-service\\src\main\resources\\test-files\\ledger-input-file.txt
